@@ -1,5 +1,8 @@
-package com.asterisks.medchange.user.ui;
+package com.asterisks.medchange.user.ui.fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +15,8 @@ import com.asterisks.medchange.user.R;
 import com.asterisks.medchange.user.api.models.UserLoginCallbackModel;
 import com.asterisks.medchange.user.api.models.UserRegisterModel;
 import com.asterisks.medchange.user.api.service.MediChangeClient;
+import com.asterisks.medchange.user.constants.StringKeys;
+import com.asterisks.medchange.user.ui.activities.DashActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,6 +41,7 @@ public class RegisterFragment extends Fragment {
     TextInputEditText mPasswordTextEdit;
     TextInputEditText mRetypePasswordTextEdit;
     MaterialButton mRegisterButton;
+    SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -97,6 +103,28 @@ public class RegisterFragment extends Fragment {
                     public void onResponse(Call<UserLoginCallbackModel> call, Response<UserLoginCallbackModel> response) {
                         if(response.isSuccessful()){
                             Snackbar.make(getView(),response.body().getToken().toString(),Snackbar.LENGTH_LONG).show();
+                            //Getting values form response:
+                            String token = response.body().getToken();
+                            String email = response.body().getUser().getEmail();
+                            String username = response.body().getUser().getUsername();
+                            String credits = response.body().getUser().getTotalCredits();
+                            String aadhaarNo = response.body().getUser().getAadhaarNo();
+                            String address= response.body().getUser().getAddress();
+
+                            //Saving return values in preferences
+                            sharedPreferences = getContext().getSharedPreferences(StringKeys.APP_PREFS, Context.MODE_PRIVATE);
+                            sharedPreferences.edit().putString(StringKeys.TOKEN_PREF,token).commit();
+                            sharedPreferences.edit().putString(StringKeys.USER_EMAIL_PREF,email).commit();
+                            sharedPreferences.edit().putString(StringKeys.USER_NAME_PREF,username).commit();
+                            sharedPreferences.edit().putString(StringKeys.USER_CREDITS_PREF,credits).commit();
+                            sharedPreferences.edit().putString(StringKeys.USER_AADHAAR_PREF,aadhaarNo).commit();
+                            sharedPreferences.edit().putString(StringKeys.USER_ADDRESS_PREF,address).commit();
+
+                            //Launching dashboard
+                            Intent intent = new Intent(getContext(), DashActivity.class);
+                            startActivity(intent);
+                            //closing current activity
+                            getActivity().finish();
                         }else{
                             Snackbar.make(getView(),"Invalid credentials",Snackbar.LENGTH_LONG).show();
                         }
