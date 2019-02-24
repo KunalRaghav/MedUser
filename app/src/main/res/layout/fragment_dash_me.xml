@@ -9,6 +9,7 @@
     android:gravity="center"
     android:textSize="42sp"/>
     <TextView
+        android:id="@+id/dash_me_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Logout"

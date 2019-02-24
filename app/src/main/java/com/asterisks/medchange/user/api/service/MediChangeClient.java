@@ -17,4 +17,5 @@ public interface MediChangeClient {
 
     @POST("api/auth/login") Call<UserLoginCallbackModel> login (@Body UserLoginModel userLogin);
     @POST("api/auth/register")Call<UserLoginCallbackModel> register (@Body UserRegisterModel userRegisterModel);
+    //@POST("api/auth/logout")
 }
