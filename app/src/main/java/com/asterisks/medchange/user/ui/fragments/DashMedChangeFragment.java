@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import com.asterisks.medchange.user.R;
 import com.asterisks.medchange.user.constants.StringKeys;
+import com.asterisks.medchange.user.ui.activities.AddMedicineActivity;
 import com.asterisks.medchange.user.ui.activities.GetMedicinesActivity;
 import com.asterisks.medchange.user.ui.activities.SellMedicinesActivity;
+import com.google.android.material.button.MaterialButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +25,7 @@ public class DashMedChangeFragment extends Fragment {
     TextView Credits;
     SharedPreferences sharedPreferences;
     LinearLayout getButton,sellButton;
+    MaterialButton addButton;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,6 +63,15 @@ public class DashMedChangeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SellMedicinesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        addButton = view.findViewById(R.id.dash_medchange_add);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddMedicineActivity.class);
                 startActivity(intent);
             }
         });

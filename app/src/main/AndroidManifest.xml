@@ -46,6 +46,7 @@
         <activity android:name=".ui.activities.DashActivity" />
         <activity android:name=".ui.activities.GetMedicinesActivity"/>
         <activity android:name=".ui.activities.SellMedicinesActivity"/>
+        <activity android:name=".ui.activities.AddMedicineActivity"/>
     </application>
 
 </manifest>
