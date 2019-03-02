@@ -44,6 +44,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activities.DashActivity" />
+        <activity android:name=".ui.activities.GetMedicinesActivity"/>
+        <activity android:name=".ui.activities.SellMedicinesActivity"/>
     </application>
 
 </manifest>
