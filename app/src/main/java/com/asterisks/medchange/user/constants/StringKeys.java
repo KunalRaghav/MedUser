@@ -8,4 +8,6 @@ public class StringKeys {
     public static final String USER_CREDITS_PREF="userCreditsPref";
     public static final String USER_AADHAAR_PREF="userAadhaarPref";
     public static final String USER_ADDRESS_PREF="userAddressPref";
+    public static final String PICTURE_MEDICINE="medicinePicture";
+    public static final String PICTURE_EXPIRY="medicineExpiry";
 }
