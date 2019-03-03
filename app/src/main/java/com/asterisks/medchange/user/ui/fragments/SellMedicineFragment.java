@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.asterisks.medchange.user.R;
+import com.asterisks.medchange.user.api.models.PatchModel;
 import com.asterisks.medchange.user.api.models.PharmacistModel;
 import com.asterisks.medchange.user.api.models.PharmacistModelList;
 import com.asterisks.medchange.user.api.models.UserMedicineModel;
@@ -125,9 +126,8 @@ public class SellMedicineFragment extends Fragment {
         mRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                medicineModel.setPharmacist(String.valueOf(ListPharmaSelector));
-                medicineModel.setRequested(true);
-                Call<ResponseBody> patch = mediChangeClient.patchMedicine(Integer.parseInt(medicineModel.getId()), medicineModel);
+                PatchModel patchModel=new PatchModel(true,ListPharmaSelector);
+                Call<ResponseBody> patch = mediChangeClient.patchMedicine(medicineModel.getId(), patchModel);
                 patch.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

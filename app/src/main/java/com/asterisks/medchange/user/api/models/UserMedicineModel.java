@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 
 public class UserMedicineModel implements Serializable {
-    String id;
+    int id;
     String created_at;
     String updated_at;
     String creditForMedicine;
@@ -16,15 +16,15 @@ public class UserMedicineModel implements Serializable {
     Boolean isSoldByPharmacist;
     Boolean isAcceptedByPharmacist;
     Boolean isRequested;
-    String user;
+    int user;
     String medicine;
-    String pharmacist;
+    int pharmacist;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -108,11 +108,11 @@ public class UserMedicineModel implements Serializable {
         isRequested = requested;
     }
 
-    public String getUser() {
+    public int getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(int user) {
         this.user = user;
     }
 
@@ -124,11 +124,11 @@ public class UserMedicineModel implements Serializable {
         this.medicine = medicine;
     }
 
-    public String getPharmacist() {
+    public int getPharmacist() {
         return pharmacist;
     }
 
-    public void setPharmacist(String pharmacist) {
+    public void setPharmacist(int pharmacist) {
         this.pharmacist = pharmacist;
     }
 }

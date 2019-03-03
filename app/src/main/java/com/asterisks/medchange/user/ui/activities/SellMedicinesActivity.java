@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.asterisks.medchange.user.R;
+import com.asterisks.medchange.user.api.models.MedicineModel;
 import com.asterisks.medchange.user.api.models.UserMedicineModel;
 import com.asterisks.medchange.user.api.service.MediChangeClient;
 import com.asterisks.medchange.user.constants.StringKeys;
@@ -42,6 +43,7 @@ public class SellMedicinesActivity extends AppCompatActivity {
     SellMedicineListAdapter sellAdapter;
     Context mBaseContext;
     FragmentManager fm;
+    List<MedicineModel> medicineModelList;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,18 +69,32 @@ public class SellMedicinesActivity extends AppCompatActivity {
                 }).build();
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://206.189.133.177")
                 .addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build();
-        MediChangeClient mediChangeClient = retrofit.create(MediChangeClient.class);
+        final MediChangeClient mediChangeClient = retrofit.create(MediChangeClient.class);
         Call<List<UserMedicineModel>> getListOfMedicinesOfUsers = mediChangeClient.getListOfMedicinesOfUsers();
         getListOfMedicinesOfUsers.enqueue(new Callback<List<UserMedicineModel>>() {
             @Override
             public void onResponse(Call<List<UserMedicineModel>> call, Response<List<UserMedicineModel>> response) {
                 if(response.isSuccessful()){
                     userMedsList=response.body();
-                    sellAdapter = new SellMedicineListAdapter(userMedsList,mViewContainer,mBaseContext,fm);
-                    SellListProgress.setVisibility(View.GONE);
-                    SellMedsRV.setAdapter(sellAdapter);
-                    SellMedsRV.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                    Toast.makeText(getBaseContext(),"Successfully got medicines",Toast.LENGTH_LONG).show();
+                    Call<List<MedicineModel>> medicineList = mediChangeClient.getMedicineList();
+                    medicineList.enqueue(new Callback<List<MedicineModel>>() {
+                        @Override
+                        public void onResponse(Call<List<MedicineModel>> call, Response<List<MedicineModel>> response) {
+                            if(response.isSuccessful()){
+                                medicineModelList = response.body();
+                                sellAdapter = new SellMedicineListAdapter(userMedsList,mViewContainer,mBaseContext,fm,medicineModelList);
+                                SellListProgress.setVisibility(View.GONE);
+                                SellMedsRV.setAdapter(sellAdapter);
+                                SellMedsRV.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+                                Toast.makeText(getBaseContext(),"Successfully got medicines",Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<MedicineModel>> call, Throwable t) {
+
+                        }
+                    });
                 }else{
                     Toast.makeText(getBaseContext(),"Failed",Toast.LENGTH_LONG).show();
                     Log.d(TAG, "onResponse: Failed:\n"+response.toString());

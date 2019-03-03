@@ -30,6 +30,7 @@ public class SellMedicineListAdapter extends RecyclerView.Adapter<SellMedicineLi
     Context mContext;
     FragmentManager fm;
     MedicineModel medicine;
+    List<MedicineModel> medicineModelList;
 
 
 //    public SellMedicineListAdapter(List<UserMedicineModel> userMedicineModelList) {
@@ -44,6 +45,14 @@ public class SellMedicineListAdapter extends RecyclerView.Adapter<SellMedicineLi
         this.fm = fm;
     }
 
+    public SellMedicineListAdapter(List<UserMedicineModel> userMedicineModelList, FrameLayout mContainer, Context mContext, FragmentManager fm, List<MedicineModel> medicineModelList) {
+        this.userMedicineModelList = userMedicineModelList;
+        this.mContainer = mContainer;
+        this.mContext = mContext;
+        this.fm = fm;
+        this.medicineModelList = medicineModelList;
+    }
+
     @NonNull
     @Override
     public SellMedicineListAdapter.ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -56,8 +65,11 @@ public class SellMedicineListAdapter extends RecyclerView.Adapter<SellMedicineLi
     @Override
     public void onBindViewHolder(@NonNull SellMedicineListAdapter.ItemViewHolder holder, int position) {
         UserMedicineModel model = userMedicineModelList.get(position);
-        holder.mMedicineID.setText(model.getId());
-        holder.mMedicineName.setText("Calpol 650");
+        holder.mMedicineID.setText(String.valueOf(model.getId()));
+//        holder.mMedicineName.setText("Calpol 650");
+        holder.mMedicineName.setText(
+                getName(Integer.parseInt(model.getMedicine()))
+        );
         holder.mExpiryDate.setText("Expires ON: "+model.getExpiryDate());
         holder.mCredits.setText("Credits: "+model.getCreditForMedicine());
         holder.mQuantity.setText("Quantity: "+model.getQuantityOfMedicine());
@@ -106,8 +118,17 @@ public class SellMedicineListAdapter extends RecyclerView.Adapter<SellMedicineLi
     UserMedicineModel getMedicine(int ID){
         for(int i=0;i<userMedicineModelList.size();i++){
             UserMedicineModel model = userMedicineModelList.get(i);
-            if(Integer.parseInt(model.getId())==ID){
+            if(model.getId()==ID){
                 return model;
+            }
+        }
+        return null;
+    }
+    String getName(int ID){
+        for(int i=0;i<medicineModelList.size();i++){
+            MedicineModel model = medicineModelList.get(i);
+            if(model.getId()==ID){
+                return model.getName();
             }
         }
         return null;

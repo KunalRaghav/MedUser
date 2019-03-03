@@ -2,6 +2,7 @@ package com.asterisks.medchange.user.api.service;
 
 import com.asterisks.medchange.user.api.models.MedicineLocationArrayModel;
 import com.asterisks.medchange.user.api.models.MedicineModel;
+import com.asterisks.medchange.user.api.models.PatchModel;
 import com.asterisks.medchange.user.api.models.PharmacistModel;
 import com.asterisks.medchange.user.api.models.PharmacistModelList;
 import com.asterisks.medchange.user.api.models.UserLoginCallbackModel;
@@ -53,5 +54,5 @@ public interface MediChangeClient {
     Call<List<UserMedicineModel>> getListOfMedicinesOfUsers();
     @GET("api/medicinelocation") Call<MedicineLocationArrayModel> getMedcinesWithLocation();
     @GET("api/pharmacistlist") Call<PharmacistModelList> getPharmacistList();
-    @PATCH("api/medicineofuser/{id}/") Call<ResponseBody> patchMedicine(@Path("id") int medicineID, @Body UserMedicineModel userMedicineModel);
+    @PATCH("api/medicineofuser/{id}/") Call<ResponseBody> patchMedicine(@Path("id") int medicineID, @Body PatchModel patchModel);
 }
