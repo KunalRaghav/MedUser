@@ -119,7 +119,6 @@ public class DashHealerFragment extends Fragment {
     FloatingActionButton mGetCurrentLocation;
     FusedLocationProviderClient mFusedLocationProviderClient;
     Boolean mLocationPermissionGranted=true;
-    LatLng sydney;
     Location mLastKnownLocation;
     Activity mHostActivity;
     @Nullable
@@ -171,7 +170,6 @@ public class DashHealerFragment extends Fragment {
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         }
                     }

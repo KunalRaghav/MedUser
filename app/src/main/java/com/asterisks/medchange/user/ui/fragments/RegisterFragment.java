@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class RegisterFragment extends Fragment {
 
@@ -82,8 +85,11 @@ public class RegisterFragment extends Fragment {
             }
         });
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://authpreviewapi.herokuapp.com/").
+                .baseUrl("http://206.189.133.177/").
                         addConverterFactory(GsonConverterFactory.create()).build();
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("https://authpreviewapi.herokuapp.com/").
+//                        addConverterFactory(GsonConverterFactory.create()).build();
         final MediChangeClient changeClient = retrofit.create(MediChangeClient.class);
 
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +108,7 @@ public class RegisterFragment extends Fragment {
                     @Override
                     public void onResponse(Call<UserLoginCallbackModel> call, Response<UserLoginCallbackModel> response) {
                         if(response.isSuccessful()){
-                            Snackbar.make(getView(),response.body().getToken().toString(),Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(getView(),response.body().getToken(),Snackbar.LENGTH_LONG).show();
                             //Getting values form response:
                             String token = response.body().getToken();
                             String email = response.body().getUser().getEmail();
@@ -126,6 +132,7 @@ public class RegisterFragment extends Fragment {
                             //closing current activity
                             getActivity().finish();
                         }else{
+                            Log.d(TAG, "onResponse: Output:\n"+response.body());
                             Snackbar.make(getView(),"Invalid credentials",Snackbar.LENGTH_LONG).show();
                         }
                     }

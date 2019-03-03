@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class LoginFragment extends Fragment {
@@ -65,8 +68,11 @@ public class LoginFragment extends Fragment {
                 mFragmentTransaction.commit();
             }
         });
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://206.189.133.177").
+//                addConverterFactory(GsonConverterFactory.create()).build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://authpreviewapi.herokuapp.com/").
+                .baseUrl("https://authpreviewapi.herokuapp.com").
                 addConverterFactory(GsonConverterFactory.create()).build();
         final MediChangeClient changeClient = retrofit.create(MediChangeClient.class);
         mLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +117,7 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<UserLoginCallbackModel> call, Throwable t) {
+                        t.printStackTrace();
                         Toast.makeText(getContext(),"Internet Not found",Toast.LENGTH_LONG).show();
                     }
                 });
