@@ -1,8 +1,10 @@
 package com.asterisks.medchange.user.api.service;
 
+import com.asterisks.medchange.user.api.models.MedicineLocationArrayModel;
 import com.asterisks.medchange.user.api.models.MedicineModel;
 import com.asterisks.medchange.user.api.models.UserLoginCallbackModel;
 import com.asterisks.medchange.user.api.models.UserLoginModel;
+import com.asterisks.medchange.user.api.models.UserMedicineModel;
 import com.asterisks.medchange.user.api.models.UserRegisterModel;
 
 import java.util.List;
@@ -41,4 +43,7 @@ public interface MediChangeClient {
     Call postMedicine(
             @PartMap Map<String,RequestBody> map
             );
+    @GET("api/medicineofuser")
+    Call<List<UserMedicineModel>> getListOfMedicinesOfUsers();
+    @GET("api/medicinelocation") Call<MedicineLocationArrayModel> getMedcinesWithLocation();
 }

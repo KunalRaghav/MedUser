@@ -68,12 +68,12 @@ public class LoginFragment extends Fragment {
                 mFragmentTransaction.commit();
             }
         });
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://206.189.133.177").
-//                addConverterFactory(GsonConverterFactory.create()).build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://authpreviewapi.herokuapp.com").
+                .baseUrl("http://206.189.133.177").
                 addConverterFactory(GsonConverterFactory.create()).build();
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("https://authpreviewapi.herokuapp.com").
+//                addConverterFactory(GsonConverterFactory.create()).build();
         final MediChangeClient changeClient = retrofit.create(MediChangeClient.class);
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
