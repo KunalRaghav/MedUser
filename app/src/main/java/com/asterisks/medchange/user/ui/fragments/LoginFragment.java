@@ -95,6 +95,7 @@ public class LoginFragment extends Fragment {
                             String credits = response.body().getUser().getTotalCredits();
                             String aadhaarNo = response.body().getUser().getAadhaarNo();
                             String address= response.body().getUser().getAddress();
+                            String phone = response.body().getUser().getPhoneNumber();
 
                             //Saving return values in preferences
                             sharedPreferences = getContext().getSharedPreferences(StringKeys.APP_PREFS,Context.MODE_PRIVATE);
@@ -104,6 +105,7 @@ public class LoginFragment extends Fragment {
                             sharedPreferences.edit().putString(StringKeys.USER_CREDITS_PREF,credits).commit();
                             sharedPreferences.edit().putString(StringKeys.USER_AADHAAR_PREF,aadhaarNo).commit();
                             sharedPreferences.edit().putString(StringKeys.USER_ADDRESS_PREF,address).commit();
+                            sharedPreferences.edit().putString(StringKeys.USER_PHONE_PREF,phone).commit();
 
                             //Launching dashboard
                             Intent intent = new Intent(getContext(), DashActivity.class);

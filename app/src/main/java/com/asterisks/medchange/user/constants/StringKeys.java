@@ -10,4 +10,5 @@ public class StringKeys {
     public static final String USER_ADDRESS_PREF="userAddressPref";
     public static final String PICTURE_MEDICINE="medicinePicture";
     public static final String PICTURE_EXPIRY="medicineExpiry";
+    public static final String USER_PHONE_PREF="userPhonePref";
 }

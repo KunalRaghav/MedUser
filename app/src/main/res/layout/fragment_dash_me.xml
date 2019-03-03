@@ -1,13 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="48dp">
     <TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="ME"
-    android:gravity="center"
-    android:textSize="42sp"/>
+        android:id="@+id/dash_me_credits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Credits"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/dash_me_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/dash_me_aadhaar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aadhaar"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/dash_me_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/dash_me_logout"
         android:layout_width="match_parent"

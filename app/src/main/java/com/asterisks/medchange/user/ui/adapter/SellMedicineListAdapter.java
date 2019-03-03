@@ -15,6 +15,7 @@ import com.asterisks.medchange.user.api.models.UserMedicineModel;
 import com.asterisks.medchange.user.ui.fragments.SellMedicineFragment;
 import com.google.android.material.button.MaterialButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -51,6 +52,14 @@ public class SellMedicineListAdapter extends RecyclerView.Adapter<SellMedicineLi
         this.mContext = mContext;
         this.fm = fm;
         this.medicineModelList = medicineModelList;
+        List<UserMedicineModel> userMedicineModels=new ArrayList<>();
+        for(int i=0;i<userMedicineModelList.size();i++){
+            UserMedicineModel model = userMedicineModelList.get(i);
+            if(!model.getAcceptedByPharmacist()){
+                userMedicineModels.add(model);
+            }
+        }
+        this.userMedicineModelList=userMedicineModels;
     }
 
     @NonNull
