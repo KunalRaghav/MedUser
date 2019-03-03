@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.asterisks.medchange.user.R;
 import com.asterisks.medchange.user.api.models.MedicineModel;
+import com.asterisks.medchange.user.api.models.PostUserMedicineModel;
+import com.asterisks.medchange.user.api.models.UserMedicineModel;
 import com.asterisks.medchange.user.api.service.MediChangeClient;
 import com.asterisks.medchange.user.constants.IntKeys;
 import com.asterisks.medchange.user.constants.StringKeys;
@@ -42,6 +44,7 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,10 +63,11 @@ public class AddMedicineActivity extends AppCompatActivity {
     List<MedicineModel> listMedicines;
     List<String> list;
     File medfile,expfile;
+    PostUserMedicineModel postUserMedicineModel;
     Bitmap MedBitmap;
     Bitmap ExpiryBitmap;
     int imageview_selector=0;
-    long listdropdown_selector=0;
+    int listdropdown_selector=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,12 +87,13 @@ public class AddMedicineActivity extends AppCompatActivity {
                 .addInterceptor(new Interceptor() {
                     @Override
                     public okhttp3.Response intercept(Chain chain) throws IOException {
-                        Request original = chain.request();
-                        HttpUrl url = original.url();
-                        HttpUrl newHttpUrl = url.newBuilder().addQueryParameter("token",token).build();
-                        Request.Builder builder = original.newBuilder().url(newHttpUrl);
-                        Request request = builder.build();
-                        return chain.proceed(request);
+                        Request original = chain.request().newBuilder().addHeader("Authorization","token "+token).build();
+//                        Request original = chain.request();
+//                        HttpUrl url = original.url();
+//                        HttpUrl newHttpUrl = url.newBuilder().addQueryParameter("token",token).build();
+//                        Request.Builder builder = original.newBuilder().url(newHttpUrl);
+//                        Request request = builder.build();
+                        return chain.proceed(original);
                     }
                 }).build();
 
@@ -121,7 +126,7 @@ public class AddMedicineActivity extends AppCompatActivity {
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mDropdown.setAdapter(adapter);
                     Toast.makeText(getApplicationContext(),"Medicines Loaded Successfully",Toast.LENGTH_LONG).show();
-                    listdropdown_selector=listMedicines.get(0).getId();
+                    listdropdown_selector=(int) listMedicines.get(0).getId();
                 }else{
                     Log.d(TAG, "onResponse: Response wasn't successful\n"+response.body());
                 }
@@ -162,7 +167,7 @@ public class AddMedicineActivity extends AppCompatActivity {
         mDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                listdropdown_selector = listMedicines.get(position).getId();
+                listdropdown_selector = (int) listMedicines.get(position).getId();
             }
 
             @Override
@@ -196,8 +201,40 @@ public class AddMedicineActivity extends AppCompatActivity {
 //                        t.printStackTrace();
 //                    }
 //                });
-                Toast.makeText(getApplicationContext(),"Sent successfully",Toast.LENGTH_LONG).show();
-                finish();
+                postUserMedicineModel=new PostUserMedicineModel(ExpiryDate.getText().toString(),Integer.parseInt(Quantity.getText().toString()),listdropdown_selector);
+                Call<ResponseBody> postMedicine = mediChangeClient.postMedicine(postUserMedicineModel);
+                postMedicine.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
+                            finish();
+                        }else{
+                            Log.d(TAG, "onResponse: \n"+response.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+//                postMedicine.enqueue(new Callback() {
+//                    @Override
+//                    public void onResponse(Call call, Response response) {
+//                        if(response.isSuccessful()){
+//                            Toast.makeText(getBaseContext(),"Successful",Toast.LENGTH_LONG).show();
+//                            finish();
+//                        }else{
+//                            Log.d(TAG, "onResponse: \n"+response.toString());
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call call, Throwable t) {
+//                        t.printStackTrace();
+//                    }
+//                });
             }
         });
     }

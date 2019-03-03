@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.asterisks.medchange.user.R;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,9 @@ public class DatePickerFragment extends DialogFragment {
             calender.set(Calendar.YEAR,year);
             calender.set(Calendar.MONTH,month);
             calender.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-            String date = DateFormat.getDateInstance().format(calender.getTime());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            String date = DateFormat.getDateInstance().format(calender.getTime());
+            String date = dateFormat.format(calender.getTime());
             ExpiryDate.setText(date);
         }
     };

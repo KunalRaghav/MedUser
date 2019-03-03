@@ -5,6 +5,7 @@ import com.asterisks.medchange.user.api.models.MedicineModel;
 import com.asterisks.medchange.user.api.models.PatchModel;
 import com.asterisks.medchange.user.api.models.PharmacistModel;
 import com.asterisks.medchange.user.api.models.PharmacistModelList;
+import com.asterisks.medchange.user.api.models.PostUserMedicineModel;
 import com.asterisks.medchange.user.api.models.UserLoginCallbackModel;
 import com.asterisks.medchange.user.api.models.UserLoginModel;
 import com.asterisks.medchange.user.api.models.UserMedicineModel;
@@ -46,10 +47,9 @@ public interface MediChangeClient {
 //            @Part("expiryPicture") Bitmap Expbitmap,
 //            @Part("medicinePicture") Bitmap MedBitmap
 //            );
-    @POST("api/medicineofuser/")
-    Call postMedicine(
-            @PartMap Map<String,RequestBody> map
-            );
+    @POST("api/medicineofuser/") Call<ResponseBody> postMedicine(
+            @Body PostUserMedicineModel model
+    );
     @GET("api/medicineofuser")
     Call<List<UserMedicineModel>> getListOfMedicinesOfUsers();
     @GET("api/medicinelocation") Call<MedicineLocationArrayModel> getMedcinesWithLocation();
