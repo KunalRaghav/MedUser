@@ -1,6 +1,10 @@
 package com.asterisks.medchange.user.api.models;
 
-public class UserMedicineModel {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class UserMedicineModel implements Serializable {
     String id;
     String created_at;
     String updated_at;

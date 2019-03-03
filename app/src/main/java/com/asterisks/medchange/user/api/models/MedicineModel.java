@@ -1,6 +1,8 @@
 package com.asterisks.medchange.user.api.models;
 
-public class MedicineModel {
+import java.io.Serializable;
+
+public class MedicineModel implements Serializable {
     long id;
     String created_at;
     String updated_at;

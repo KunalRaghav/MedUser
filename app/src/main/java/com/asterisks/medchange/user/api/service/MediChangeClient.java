@@ -2,6 +2,8 @@ package com.asterisks.medchange.user.api.service;
 
 import com.asterisks.medchange.user.api.models.MedicineLocationArrayModel;
 import com.asterisks.medchange.user.api.models.MedicineModel;
+import com.asterisks.medchange.user.api.models.PharmacistModel;
+import com.asterisks.medchange.user.api.models.PharmacistModelList;
 import com.asterisks.medchange.user.api.models.UserLoginCallbackModel;
 import com.asterisks.medchange.user.api.models.UserLoginModel;
 import com.asterisks.medchange.user.api.models.UserMedicineModel;
@@ -11,12 +13,16 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
 
 public interface MediChangeClient {
 
@@ -46,4 +52,6 @@ public interface MediChangeClient {
     @GET("api/medicineofuser")
     Call<List<UserMedicineModel>> getListOfMedicinesOfUsers();
     @GET("api/medicinelocation") Call<MedicineLocationArrayModel> getMedcinesWithLocation();
+    @GET("api/pharmacistlist") Call<PharmacistModelList> getPharmacistList();
+    @PATCH("api/medicineofuser/{id}/") Call<ResponseBody> patchMedicine(@Path("id") int medicineID, @Body UserMedicineModel userMedicineModel);
 }

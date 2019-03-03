@@ -1,6 +1,5 @@
 package com.asterisks.medchange.user.ui.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ public class GetMedicineListAdapter extends RecyclerView.Adapter<GetMedicineList
     @Override
     public GetMedicineListAdapter.GetMedicineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.list_item_medicine,parent,false);
+        View view = inflater.inflate(R.layout.list_item_medicine_get,parent,false);
         GetMedicineViewHolder medicineViewHolder = new GetMedicineViewHolder(view);
         return medicineViewHolder;
     }

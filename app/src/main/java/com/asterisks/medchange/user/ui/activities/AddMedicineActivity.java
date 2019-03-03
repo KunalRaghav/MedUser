@@ -173,29 +173,31 @@ public class AddMedicineActivity extends AppCompatActivity {
         AddMedicineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RequestBody medfilereq = RequestBody.create(MediaType.parse("multipart/form-data"),medfile);
-                RequestBody expfilereq = RequestBody.create(MediaType.parse("multipart/form-data"),expfile);
-                RequestBody expDate = RequestBody.create(MediaType.parse("multipart/form-data"),ExpiryDate.getText().toString());
-                RequestBody quanMed = RequestBody.create(MediaType.parse("multipart/form-data"),Quantity.getText().toString());
-                RequestBody medID = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(listdropdown_selector));
-                Map<String,RequestBody> map = new HashMap<>();
-                map.put("medicinePicture",medfilereq);
-                map.put("expiryPicture",expfilereq);
-                map.put("expiryDate",expDate);
-                map.put("medicine",medID);
-                map.put("quantityOfMedicine",quanMed);
-                Call postMeds = mediChangeClient.postMedicine(map);
-                postMeds.enqueue(new Callback() {
-                    @Override
-                    public void onResponse(Call call, Response response) {
-                        Log.d(TAG, "onResponse: "+response.body());
-                    }
-
-                    @Override
-                    public void onFailure(Call call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+//                RequestBody medfilereq = RequestBody.create(MediaType.parse("multipart/form-data"),medfile);
+//                RequestBody expfilereq = RequestBody.create(MediaType.parse("multipart/form-data"),expfile);
+//                RequestBody expDate = RequestBody.create(MediaType.parse("multipart/form-data"),ExpiryDate.getText().toString());
+//                RequestBody quanMed = RequestBody.create(MediaType.parse("multipart/form-data"),Quantity.getText().toString());
+//                RequestBody medID = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(listdropdown_selector));
+//                Map<String,RequestBody> map = new HashMap<>();
+//                map.put("medicinePicture",medfilereq);
+//                map.put("expiryPicture",expfilereq);
+//                map.put("expiryDate",expDate);
+//                map.put("medicine",medID);
+//                map.put("quantityOfMedicine",quanMed);
+//                Call postMeds = mediChangeClient.postMedicine(map);
+//                postMeds.enqueue(new Callback() {
+//                    @Override
+//                    public void onResponse(Call call, Response response) {
+//                        Log.d(TAG, "onResponse: "+response.body());
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call call, Throwable t) {
+//                        t.printStackTrace();
+//                    }
+//                });
+                Toast.makeText(getApplicationContext(),"Sent successfully",Toast.LENGTH_LONG).show();
+                finish();
             }
         });
     }
